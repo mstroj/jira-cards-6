@@ -7,6 +7,12 @@ $controllerName = isset($_POST["c"]) ? $_POST["c"] : "cards";
 $actionName = isset($_POST["a"]) ? $_POST["a"] : "index";
 
 /**
+ * config
+ */
+if( !file_exists('config.json') ) die("Config file not found.");
+$config = json_decode(file_get_contents('config.json'), true);
+
+/**
  * do we have this controller? get and create object
  */
 $appPath = dirname(__FILE__)."/app";
@@ -19,7 +25,7 @@ if(!class_exists($controllerClass)) die("Class ".$controllerClass." not found.")
 /**
  * do we have an action?
  */
-$controller = new $controllerClass($_GET, $_POST);
+$controller = new $controllerClass($_GET, $_POST, $config);
 if( !method_exists($controller, $actionName) ) die("Action ".$actionName." not found.");
 $viewVars = $controller->$actionName();
 

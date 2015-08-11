@@ -10,12 +10,15 @@ class CardsController {
 		"post" => array()
 	);
 
+	protected $apiUrl = '';
+
 	/**
 	 * constructor which get called with request vars
 	 */
-	public function __construct( $getVars, $postVars ) {
+	public function __construct( $getVars, $postVars, $config ) {
 		$this->requestVars["get"] = $getVars;
 		$this->requestVars["post"] = $postVars;
+		$this->apiUrl = $config["api-url"];
 	}
 
 	/**
@@ -73,7 +76,7 @@ class CardsController {
 	 */
 	protected function getJira() {
 		require_once(dirname(__FILE__)."/../Lib/Jira.php");
-		$jira = new Jira($this->requestVars["post"]["path"]);
+		$jira = new Jira($this->apiUrl);
 		$jira->auth($this->requestVars["post"]["username"], $this->requestVars["post"]["password"]);
 
 		return $jira;

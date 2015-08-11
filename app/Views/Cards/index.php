@@ -4,11 +4,6 @@
 		<p>Put your JQL query below and press the button to get the pretty print-version of your tickets:</p>
 
 		<div class="jirainfo">
-		
-
-			<label for="name" class="label-input">Jira-Path: </label>
-			<input type="text" name="path" />
-			<br />
 
 			<label for="name" class="label-input">Username: </label>
 			<input type="text" name="username" />
