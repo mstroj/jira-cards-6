@@ -142,6 +142,7 @@ class Jira {
 	protected function query($method, $query, $data = array()) {
 		$result = $this->sendRequest( $method, $query, $data );
 		if( $result === false ) throw new Exception("It wasn't possible to get jira url ".$this->path.$query." with username ".$this->username);
+
 		return json_decode($result);
 	}
 
@@ -161,38 +162,29 @@ class Jira {
 		$header = array();
 		$header[] = "Content-Type: application/json";
 
-		/**
-		 * add authorization
-		 */
-		if( !empty($this->username) ) {
-			$credential = base64_encode($this->username . ':' . $this->password);
-			$header[] = "Authorization: Basic " . $credential;
-		}
 
-		/**
-		 * create the context
-		 */
-		$context = array(
-			"http" => array(
-				"method"  => $method,
-				"header"  => join("\r\n", $header),
-			));
-		if ($method=="POST" || $method == "PUT") {
-			$__data     = json_encode($data);
-			$header[]   = sprintf('Content-Length: %d', strlen($__data));
-			$context['http']['header']  = join("\r\n", $header);
-			$context['http']['content'] = $__data;
-		} else if (!empty($data)) {
+		$curl = curl_init();
+
+		// TODO: add support for POST and putenv(setting)
+		// maybe have a look at https://github.com/php-curl-class/php-curl-class/blob/master/src/Curl/Curl.php
+		if (!empty($data)) {
 			$query .= "?" . http_build_query($data);
 		}
 
-		$data = file_get_contents($this->path . $query,
-			false,
-			stream_context_create($context)
-		);
-		if (is_null($data)) {
-			throw new Exception("JIRA Rest server returns unexpected result.");
+
+		curl_setopt($curl, CURLOPT_URL, $this->path . $query);
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
+		curl_setopt($curl, CURLOPT_USERPWD, "$this->username:$this->password");
+
+		$data = curl_exec($curl);
+		$error = curl_error($curl);
+		curl_close($curl);
+
+		if (is_null($data) || $error) {
+			throw new Exception("JIRA Rest server returns unexpected result" + $error);
 		}
+
 		return $data;
 	}
 
