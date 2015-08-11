@@ -28,28 +28,7 @@ class CardsController {
 	 * show the printable ticket list based on jql query
 	 */
 	public function tickets() {	
-
-		/**
-		 * get and check jql query
-		 */
-		$jql = trim($this->requestVars["post"]["jql"]);
-		if( strlen($jql) == 0 ) throw new Exception("Empty jql found.");
-
-		/**
-		 * create jira object and establish connection
-		 */
-		require_once(dirname(__FILE__)."/../Lib/Jira.php");
-		$jira = new Jira($this->requestVars["post"]["path"]);
-		$jira->auth($this->requestVars["post"]["username"], $this->requestVars["post"]["password"]);
-
-		/**
-		 * get tickets from jira
-		 */
-		$rawTickets = $jira->getIssuesByJql($jql);
-		$tickets = array();
-		foreach( $rawTickets->issues as $ticket ) {
-			$tickets[] = $this->convertJiraIssueToArray($ticket);
-		}
+		$tickets = $this->getTickets();
 
 		/**
 		 * add epic names to tickets, if wanted
@@ -64,6 +43,48 @@ class CardsController {
 		return array(
 			"tickets" => $tickets
 		);
+	}
+
+	public function list() {
+		$tickets = $this->getTickets();
+	}
+
+	/**
+	 * get tickets from jira
+	 */
+	protected function getTickets() {
+		$jira = $this->getJira();
+		$jql = $this->getJql();
+
+		$rawTickets = $jira->getIssuesByJql($jql);
+
+		$tickets = array();
+		foreach( $rawTickets->issues as $ticket ) {
+			$tickets[] = $this->convertJiraIssueToArray($ticket);
+		}
+
+		return $tickets;
+	}
+
+	/**
+	 * create jira object and establish connection
+	 */
+	protected function getJira() {
+		require_once(dirname(__FILE__)."/../Lib/Jira.php");
+		$jira = new Jira($this->requestVars["post"]["path"]);
+		$jira->auth($this->requestVars["post"]["username"], $this->requestVars["post"]["password"]);
+
+		return $jira;
+	}
+
+	/**
+	 * get and check jql query
+	 */
+	protected function getJql() {
+		$jql = trim($this->requestVars["post"]["jql"]);
+		if( strlen($jql) == 0 ) throw new Exception("Empty jql found.");
+
+		return $jql;
 	}
 	
 	/**
