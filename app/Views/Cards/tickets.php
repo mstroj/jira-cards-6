@@ -1,26 +1,8 @@
 <?php
 
-/**
- * Helper class for this view.
- * TODO: move this helper to own structure
- */
-class CardsHelper {
-
-	protected $knownEpics = array();
-	
-	public function getEpicNumber($epicname) {
-		if(empty($epicname)) return "";
-		$array_pos = array_search( $epicname, $this->knownEpics );
-		if( $array_pos === false ) {
-			$this->knownEpics[] = $epicname;
-			$array_pos = array_search( $epicname, $this->knownEpics );
-		}
-		return $array_pos;
-	}
-
-}
-
+require_once(dirname(__FILE__)."/../../Lib/CardsHelper.php");
 $helper = new CardsHelper();
+
 ?>
 
 <?php foreach( $tickets as $ticket ) { ?>
@@ -28,7 +10,7 @@ $helper = new CardsHelper();
 	<div class="priority <?php echo strtolower($ticket['priority']) ?>"></div>
 	<div class="issuetype <?php echo str_replace(' ', '', strtolower($ticket['issuetype'])) ?>"></div>
 	<?php if( isset($ticket['epic']) ) { ?>
-	<div class="epic epicgroup_<?php echo $helper->getEpicNumber($ticket['epic']); ?>"><?php echo $ticket["epic"] ?></div>
+	<div class="epic epicgroup_<?php echo $helper->getEpicNumber($ticket['epickey']); ?>"><?php echo $ticket["epic"] ?></div>
 	<?php } ?>
 	<div class="number"><?php echo $ticket["key"] ?></div>
 	<div class="summary"><?php echo $ticket["summary"] ?></div>
