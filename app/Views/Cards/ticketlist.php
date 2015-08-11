@@ -5,22 +5,64 @@ $helper = new CardsHelper();
 
 ?>
 
-<?php foreach( $tickets as $ticket ) { ?>
-<div class="ticket">
-	<div class="priority <?php echo strtolower($ticket['priority']) ?>"></div>
-	<div class="issuetype <?php echo str_replace(' ', '', strtolower($ticket['issuetype'])) ?>"></div>
-	<?php if( isset($ticket['epic']) ) { ?>
-	<div class="epic epicgroup_<?php echo $helper->getEpicNumber($ticket['epickey']); ?>"><?php echo $ticket["epic"] ?></div>
-	<?php } ?>
-	<div class="number"><?php echo $ticket["key"] ?></div>
-	<div class="summary"><?php echo $ticket["summary"] ?></div>
-	<?php if(false) { //isset($ticket['rank']) ) { ?>
-	<div class="rank"><?php echo $ticket["rank"] ?></div>
-	<?php } ?>
-	<div class="reporter"><?php echo $ticket["reporter"] ?></div>
-	<div class="assignee"><?php echo $ticket["assignee"] ?></div>
-	<?php if( isset($ticket['story_points']) ) { ?>
-		<div class="story_points"><?php echo $ticket["story_points"] ?></div>
-	<?php } ?>
+<link type="text/css" rel="stylesheet" href="https://jira.ecom.migros.net/s/c7e1249ffc03eb9ded908c236bd1996d-CDN/en_US-4qbmen/6345/87/37/_/download/superbatch/css/batch.css" media="all">
+<style>
+    a {
+        color: black !important;
+        font-size: 40px;
+        line-height: 100px;
+    }
+    #printable-content {
+        padding: 0;
+    }
+    #issuetable {
+        margin: 0;
+    }
+    .issuekey {
+    	position: relative;
+    }
+    .issuekey .issue-link {
+        font-weight: bold;
+    }
+    .summary .issue-link {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: inline-block;
+        width: 750px;
+    }
+    div.epic {
+    	max-width: 100%;
+		display: block;
+		left: 10px;
+		float:none;
+		position: absolute;
+		top: 18px;
+		font-size: 10px;
+    }
+</style>
+
+<div id="jira" class="aui-layout aui-theme-default page-type-printable">
+    <div id="printable-content">
+        <table id="issuetable">
+            <tbody>
+            	<?php foreach( $tickets as $ticket ) { ?>
+                <tr id="issuerow21657" rel="21657" data-issuekey="MREL-3261" class="issuerow">
+                    <td class="issuekey">
+                    	<?php if( isset($ticket['epic']) ) { ?>
+						<div class="epic epicgroup_<?php echo $helper->getEpicNumber($ticket['epickey']); ?>"><?php echo $ticket["epic"] ?></div>
+						<?php } ?>
+                        <a class="issue-link" data-issue-key="MREL-3261" href="https://jira.ecom.migros.net/browse/<?php echo $ticket['key'] ?>"><?php echo $ticket['key'] ?></a>
+                    </td>
+                    <td class="summary">
+                        <p>
+                            <a class="issue-link" data-issue-key="MREL-3261" href="https://jira.ecom.migros.net/browse/<?php echo $ticket['key'] ?>"><?php echo $ticket['summary'] ?></a>
+                        </p>
+                    </td>
+                </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+    </div>
 </div>
-<?php } ?>
+

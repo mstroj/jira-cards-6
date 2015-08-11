@@ -90,7 +90,7 @@ div.ticket div.summary {
 	line-height: 1.3em;
 }
 
-div.ticket div.epic {
+div.epic {
 	float: right;
 	overflow: hidden;
 	white-space: nowrap;
