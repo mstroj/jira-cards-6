@@ -23,30 +23,25 @@ class CardsController {
 	 */
 	public function index() {
 	}
-	
+
 	/**
 	 * show the printable ticket list based on jql query
 	 */
 	public function tickets() {	
 		$tickets = $this->getTickets();
 
-		/**
-		 * add epic names to tickets, if wanted
-		 */
-		if( $this->requestVars["post"]["epic"] == "1" ) {
-			$tickets = $this->addEpicNames($tickets, $jira);
-		}
-
-		/**
-		 * return view vars
-		 */
 		return array(
 			"tickets" => $tickets
 		);
 	}
 
-	public function list() {
+	
+	public function ticketlist() {
 		$tickets = $this->getTickets();
+		
+		return array(
+			"tickets" => $tickets
+		);
 	}
 
 	/**
@@ -61,6 +56,13 @@ class CardsController {
 		$tickets = array();
 		foreach( $rawTickets->issues as $ticket ) {
 			$tickets[] = $this->convertJiraIssueToArray($ticket);
+		}
+
+		/**
+		 * add epic names to tickets, if wanted
+		 */
+		if( $this->requestVars["post"]["epic"] == "1" ) {
+			$tickets = $this->addEpicNames($tickets, $jira);
 		}
 
 		return $tickets;
