@@ -41,7 +41,10 @@ div.search div.jirainfo label {
 	width: 7em;
 	display: block;
 	float: left;
-	margin-top: 1em;
+}
+
+.label-input {
+	margin-top: 1em;	
 }
 
 div.search input,
