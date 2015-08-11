@@ -3,8 +3,8 @@
 /**
  * get controller and action
  */
-$controllerName = isset($_GET["c"]) ? $_GET["c"] : "cards";
-$actionName = isset($_GET["a"]) ? $_GET["a"] : "index";
+$controllerName = isset($_POST["c"]) ? $_POST["c"] : "cards";
+$actionName = isset($_POST["a"]) ? $_POST["a"] : "index";
 
 /**
  * do we have this controller? get and create object

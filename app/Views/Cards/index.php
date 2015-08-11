@@ -1,9 +1,14 @@
 <div class="search">
-	<form action="?a=tickets" method="POST">
+	<form action="/" method="POST">
 		<h1>Jira Kanban Cards</h1>
 		<p>Put your JQL query below and press the button to get the pretty print-version of your tickets:</p>
 
 		<div class="jirainfo">
+			<label for="a">Layout: </label>
+			<select name="a">
+				<option value="tickets" selected="selected">Cards</option>
+				<option value="ticketlist">List</option>
+			</select>
 			<label for="name">Jira-Path: </label>
 			<input type="text" name="path" />
 			<br />
