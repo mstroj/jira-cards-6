@@ -118,6 +118,10 @@ class CardsController {
 			"remaining_time" => $time
 		);
 
+		if ($this->requestVars["post"]["labels"] == "1") {
+			$collectedTicket["labels"] = $ticket->fields->labels;
+		}
+
 		/**
 		 * add custom fields from Jira Agile (epic and rank)
 		 */

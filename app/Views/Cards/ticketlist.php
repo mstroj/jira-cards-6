@@ -31,14 +31,21 @@ $helper = new CardsHelper();
         display: inline-block;
         width: 750px;
     }
-    div.epic {
-    	max-width: 100%;
-		display: block;
-		left: 10px;
-		float:none;
-		position: absolute;
-		top: 18px;
-		font-size: 10px;
+    div.epic, div.label {
+        float: left;
+        max-width: 100%;
+        border-width: 1px;
+        border-style: solid;
+        margin-top: 0;
+    }
+    div.information {
+        max-width: 100%;
+        display: block;
+        left: 10px;
+        float:none;
+        position: absolute;
+        top: 18px;
+        font-size: 10px;
     }
 </style>
 
@@ -49,9 +56,16 @@ $helper = new CardsHelper();
             	<?php foreach( $tickets as $ticket ) { ?>
                 <tr id="issuerow21657" rel="21657" data-issuekey="MREL-3261" class="issuerow">
                     <td class="issuekey">
-                    	<?php if( isset($ticket['epic']) ) { ?>
-						<div class="epic epicgroup_<?php echo $helper->getEpicNumber($ticket['epickey']); ?>"><?php echo $ticket["epic"] ?></div>
-						<?php } ?>
+                        <div class="information">
+                            <?php if( isset($ticket['epic']) ) { ?>
+                            <div class="epic epicgroup_<?php echo $helper->getEpicNumber($ticket['epickey']); ?>"><?php echo $ticket["epic"] ?></div>
+                            <?php } ?>
+                            <?php if( isset($ticket['labels']) ) {
+                            foreach( $ticket["labels"] as $label ) { ?>
+                            <div class="label"><?php echo $label ?></div>
+                            <?php }
+                            } ?>
+                        </div>
                         <a class="issue-link" data-issue-key="MREL-3261" href="https://jira.ecom.migros.net/browse/<?php echo $ticket['key'] ?>"><?php echo $ticket['key'] ?></a>
                     </td>
                     <td class="summary">

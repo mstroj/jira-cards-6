@@ -78,6 +78,10 @@ div.ticket div.number {
 	font-weight: bold;
 }
 
+div.number {
+	float: left;
+}
+
 div.ticket div.summary {
 	font-weight: bold;
 	margin-top: 1em;
@@ -90,7 +94,7 @@ div.ticket div.summary {
 	line-height: 1.3em;
 }
 
-div.epic {
+div.epic, div.label {
 	float: right;
 	overflow: hidden;
 	white-space: nowrap;
@@ -103,15 +107,22 @@ div.epic {
 	color: #fff;
 }
 
-div.epic.epicgroup_0 { background-color: #FF0000 }
-div.epic.epicgroup_1 { background-color: #FF7400 }
-div.epic.epicgroup_2 { background-color: #009999 }
-div.epic.epicgroup_3 { background-color: #00CC00 }
-div.epic.epicgroup_4 { background-color: #CD0074 }
-div.epic.epicgroup_5 { background-color: #9FEE00 }
-div.epic.epicgroup_6 { background-color: #FFE900 }
-div.epic.epicgroup_7 { background-color: #B90091 }
-div.epic.epicgroup_8 { background-color: #540EAD }
+div.label {
+	color: black;
+	border: 1px solid black;
+	margin-top: 1px;
+	margin-left: 1px;
+}
+
+div.epic.epicgroup_0 { background-color: #FF0000; border-color: #FF0000; }
+div.epic.epicgroup_1 { background-color: #FF7400; border-color: #FF7400; }
+div.epic.epicgroup_2 { background-color: #009999; border-color: #009999; }
+div.epic.epicgroup_3 { background-color: #00CC00; border-color: #00CC00; }
+div.epic.epicgroup_4 { background-color: #CD0074; border-color: #CD0074; }
+div.epic.epicgroup_5 { background-color: #9FEE00; border-color: #9FEE00; }
+div.epic.epicgroup_6 { background-color: #FFE900; border-color: #FFE900; }
+div.epic.epicgroup_7 { background-color: #B90091; border-color: #B90091; }
+div.epic.epicgroup_8 { background-color: #540EAD; border-color: #540EAD; }
 
 div.ticket div.reporter {
 	white-space: nowrap;

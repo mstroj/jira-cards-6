@@ -24,7 +24,15 @@
 				<option value="0">Exclude information</option>
 			</select>
 			<br />
-			<br />	
+			<br />
+
+			<label for="labels">Labels: </label>
+			<select name="labels">
+				<option value="1" selected="selected">Include information</option>
+				<option value="0">Exclude information</option>
+			</select>
+			<br />
+			<br />
 
 			<label for="a">Layout: </label>
 			<select name="a">
